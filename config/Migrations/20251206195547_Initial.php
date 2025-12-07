@@ -26,14 +26,14 @@ class Initial extends BaseMigration
 				'null' => true
 			])
 			->addColumn('name', 'string', ['limit' => 255])
-			->addColumn('slug', 'string', ['limit' => 255])
+			->addColumn('name_slug', 'string', ['limit' => 255])
 			->addColumn('subtitle', 'string', ['limit' => 255])
 			->addColumn('subtitle_slug', 'string', ['limit' => 255])			
 			->addColumn('keywords', 'string', ['limit' => 1025])
 			->addColumn('keywords_slug', 'string', ['limit' => 1025])			
 			->addColumn('created_at', 'datetime')
 			->addColumn('updated_at', 'datetime')
-			->addIndex(['slug'], ['unique' => true, 'type' => 'fulltext'])
+			->addIndex(['name_slug'], ['unique' => true, 'type' => 'fulltext'])
 			->addIndex(['parent_id'])
 			->create();
 	}

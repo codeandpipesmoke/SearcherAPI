@@ -32,11 +32,11 @@ class Ads extends BaseMigration
 				'values' => ['active', 'archived', 'deleted'],
 				'default' => 'active',
 			])
-			->addColumn('views_count', 'integer', ['default' => 0])
-			->addColumn('unique_views_count', 'integer', ['default' => 0])
-			->addColumn('favorite_count', 'integer', ['default' => 0])
-			->addColumn('contact_clicks_count', 'integer', ['default' => 0])
-			->addColumn('clicks_count', 'integer', ['default' => 0])
+			->addColumn('views_count', 'integer', ['default' => 0, 'signed' => false])
+			->addColumn('unique_views_count', 'integer', ['default' => 0, 'signed' => false])
+			->addColumn('favorite_count', 'integer', ['default' => 0, 'signed' => false])
+			->addColumn('contact_clicks_count', 'integer', ['default' => 0, 'signed' => false])
+			->addColumn('clicks_count', 'integer', ['default' => 0, 'signed' => false])
 			->addColumn('match_score', 'float', ['default' => 0])
 			->addColumn('activity_score', 'float', ['default' => 0])
 			->addColumn('score_popularity', 'float', ['default' => 0])
@@ -46,7 +46,7 @@ class Ads extends BaseMigration
 			->addColumn('priority_level', 'integer', ['default' => 0])
 			->addColumn('admin_score_adjustment', 'integer', ['default' => 0])
 			->addColumn('is_banned', 'boolean', ['default' => 0])
-			->addColumn('reported_count', 'integer', ['default' => 0])
+			->addColumn('reported_count', 'integer', ['default' => 0, 'signed' => false])
 			->addColumn('created_at', 'datetime')
 			->addColumn('updated_at', 'datetime')
 			->addIndex(['category_id'])
@@ -55,5 +55,8 @@ class Ads extends BaseMigration
 			->addIndex(['is_featured', 'priority_level'])
 			->addIndex(['created_at'])
 			->create();
+
+
+
     }
 }
