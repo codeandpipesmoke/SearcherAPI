@@ -15,13 +15,19 @@ class Ads extends BaseMigration
      */
     public function change(): void
     {
-		$table = $this->table('ads');
+		$table = $this->table('ads', ['id' => false, 'primary_key' => ['id']]);
 		$table
+			->addColumn('id', 'integer', [
+				'signed' => false,     // <── UNSIGNED
+				'identity' => true     // <── AUTO_INCREMENT
+			])		
 			->addColumn('category_id', 'integer')
-			->addColumn('title', 'string', ['limit' => 255])
-			->addColumn('description', 'text', ['null' => true])
-			->addColumn('price', 'integer', ['null' => true])
-			->addColumn('user_id', 'integer', ['null' => true])
+			->addColumn('name', 'string', ['limit' => 255])
+			->addColumn('slug', 'string', ['limit' => 255])
+			->addColumn('description', 'text', ['limit' => 255])
+			->addColumn('description_slug', 'text', ['limit' => 255])
+			->addColumn('price', 'integer', ['null' => true, 'signed' => false])
+			->addColumn('user_id', 'string', ['limit' => 36])
 			->addColumn('status', 'enum', [
 				'values' => ['active', 'archived', 'deleted'],
 				'default' => 'active',
@@ -44,6 +50,8 @@ class Ads extends BaseMigration
 			->addColumn('created_at', 'datetime')
 			->addColumn('updated_at', 'datetime')
 			->addIndex(['category_id'])
+			->addIndex(['name'], ['type' => 'fulltext'])
+			->addIndex(['slug'], ['type' => 'fulltext'])
 			->addIndex(['is_featured', 'priority_level'])
 			->addIndex(['created_at'])
 			->create();
